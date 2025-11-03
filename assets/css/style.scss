@@ -1,0 +1,291 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+/* ============================================================
+   Global overrides & color scheme
+   ============================================================ */
+
+:root {
+  color-scheme: light dark;
+}
+
+/* Remove Cayman gradient header */
+.page-header {
+  display: none !important;
+}
+
+/* Tighten main content spacing */
+.main-content {
+  padding-top: 24px !important;
+  max-width: 1200px;
+}
+
+/* ------------------------------------------------------------
+   Light / Dark background
+   ------------------------------------------------------------ */
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background: #0b0f14 !important;
+    color: #e8eef6 !important;
+  }
+
+  a { color: #7dd3fc !important; }
+
+  .main-content {
+    background: transparent !important;
+  }
+}
+
+@media (prefers-color-scheme: light) {
+  body {
+    background: #ffffff !important;
+  }
+
+  .main-content {
+    background: transparent !important;
+  }
+}
+
+/* ============================================================
+   CV Layout
+   ============================================================ */
+
+.cv {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 28px;
+  align-items: start;
+}
+
+/* ------------------------------------------------------------
+   Left column
+   ------------------------------------------------------------ */
+
+.cv-left {
+  position: sticky;
+  top: 20px;
+  padding: 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(0,0,0,.10);
+  background: rgba(255,255,255,.70);
+}
+
+.avatar {
+  width: 100%;
+  max-width: 190px;
+  margin: 0 auto 16px;
+  display: block;
+  border-radius: 18px;
+  border: 1px solid rgba(0,0,0,.15);
+}
+
+.cv-name {
+  margin: 0 0 6px;
+  font-size: 26px;
+}
+
+.cv-role {
+  margin: 0 0 8px;
+  font-weight: 600;
+}
+
+.cv-meta {
+  font-size: 14px;
+  opacity: .75;
+  margin-bottom: 12px;
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.links li {
+  margin-bottom: 6px;
+}
+
+/* Dark mode sidebar */
+@media (prefers-color-scheme: dark) {
+  .cv-left {
+    background: rgba(16, 24, 38, .60);
+    border-color: rgba(255,255,255,.10);
+  }
+
+  .avatar {
+    border-color: rgba(255,255,255,.15);
+  }
+}
+
+/* ------------------------------------------------------------
+   Right column
+   ------------------------------------------------------------ */
+
+.cv-right {
+  min-width: 0;
+}
+
+.cv-right h2 {
+  margin-top: 0;
+}
+
+/* ============================================================
+   Project cards
+   ============================================================ */
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.card {
+  display: block;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(0,0,0,.12);
+  background: rgba(255,255,255,.80);
+  text-decoration: none !important;
+}
+
+.card:hover {
+  transform: translateY(-1px);
+  transition: transform .12s ease;
+}
+
+.card-title {
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.card-desc {
+  opacity: .8;
+  margin-bottom: 10px;
+}
+
+.tags {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.tags span {
+  font-size: 12px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid rgba(0,0,0,.15);
+  opacity: .75;
+}
+
+/* Dark mode cards */
+@media (prefers-color-scheme: dark) {
+  .card {
+    background: rgba(15, 23, 42, .55);
+    border-color: rgba(255,255,255,.12);
+  }
+
+  .tags span {
+    border-color: rgba(255,255,255,.16);
+  }
+}
+
+/* ============================================================
+   Responsive (mobile)
+   ============================================================ */
+
+@media (max-width: 900px) {
+  .cv {
+    grid-template-columns: 1fr;
+  }
+
+  .cv-left {
+    position: static;
+    margin-bottom: 20px;
+  }
+}
+
+/* ============================================================
+   Print / PDF mode
+   ============================================================ */
+
+@media print {
+
+  @page {
+    margin: 14mm;
+  }
+
+  * {
+    background: transparent !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+  }
+
+  body {
+    font-size: 11pt !important;
+    line-height: 1.35 !important;
+  }
+
+  h1, h2, h3 {
+    page-break-after: avoid;
+  }
+
+  ul, ol {
+    page-break-inside: avoid;
+  }
+
+  /* Flatten layout */
+  .cv {
+    display: block !important;
+  }
+
+  .cv-left {
+    position: static !important;
+    border: 0 !important;
+    padding: 0 !important;
+    margin-bottom: 10mm !important;
+  }
+
+  .avatar {
+    width: 38mm !important;
+    max-width: 38mm !important;
+    border-radius: 4mm !important;
+    border: 1px solid #999 !important;
+  }
+
+  /* Simplify cards */
+  .grid {
+    display: block !important;
+  }
+
+  .card {
+    padding: 0 !important;
+    border: 0 !important;
+    margin-bottom: 6mm !important;
+  }
+
+  .card-desc {
+    opacity: 1 !important;
+  }
+
+  /* Print URLs */
+  a[href^="http"]:after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #444 !important;
+    word-break: break-all;
+  }
+
+  a[href^="mailto:"]:after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+  }
+
+  hr {
+    display: none !important;
+  }
+}
